@@ -8,9 +8,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/contact" element={<Home />} /> */}
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          {/* <Route path="/profile" element={<Profile />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

@@ -14,7 +14,7 @@ const Header = () => {
                     </div>
                 </Link>
                 <Link to={'/'}>Home</Link>
-                <Link to={'/contact'}>Contact</Link>
+                <Link to={'mailto:matanew1@gmail.com'}>Contact</Link>
             </ul>
         </nav>
     )

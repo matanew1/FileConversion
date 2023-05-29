@@ -1,7 +1,6 @@
-body {
+html, body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   margin: 0;
 }
 
@@ -20,7 +19,7 @@ main {
 
 header {grid-area: head;}
 article {grid-area: content;}
-aside {grid-area: side;}
+aside {grid-area: side; height: 100%;}
 footer {grid-area: foot;}
 
 @media (min-width: 768px) {
