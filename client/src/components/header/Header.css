@@ -1,0 +1,57 @@
+/* Header.css */
+.header-nav {
+    background-color: #0a382f;
+    padding: 10px;
+}
+
+.logo-with-title {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 20%;
+}
+
+.header-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header-menu li {
+    margin-right: 10px;
+}
+
+.header-menu li:last-child {
+    margin-right: 0;
+}
+
+h1 {
+    font-size: 25px;
+    color: #c4e0db;
+    font-weight: bold;
+    margin: 0;
+}
+
+.header-menu a {
+    color: #fff;
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+    padding: 5px 30px;
+    border-radius: 4px;
+    background-color: rgb(14, 71, 71);
+}
+
+.header-menu a+a {
+    margin-left: 20px;
+}
+
+.header-menu a:hover {
+    background-color: #555;
+}
