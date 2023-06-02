@@ -8,14 +8,12 @@ import './Home.css';
 const Home = () => {
     return (
         <div>
-            <body>
-                <header><Header/></header>
-                <main>
-                    <aside><Sidebar/></aside>
-                    <div><Content/></div>
-                </main>
-                <footer><Footer/></footer>
-            </body>
+            <header><Header /></header>
+            <main>
+                <aside><Sidebar /></aside>
+                <div><Content /></div>
+            </main>
+            <footer><Footer /></footer>
         </div>
     );
 };

@@ -1,11 +1,11 @@
-class FileService {
-    constructor() {
-        
-    }
+import File from '../models/file.js';
 
-    uploadFile = async (file) => {
+class FileService {
+    static uploadFile = async (file) => {
         try {
             console.log(file);
+            const fileEntity = new File(file);
+            await fileEntity.save();
         } catch (error) {
             throw new Error(error.message);
         }
@@ -13,4 +13,4 @@ class FileService {
 
 }
 
-export default new FileService();
+export default FileService;
