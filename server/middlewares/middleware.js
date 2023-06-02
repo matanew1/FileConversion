@@ -1,5 +1,5 @@
-import { json, urlencoded } from 'express';
-import cors from 'cors';
+const { json, urlencoded } = require('express');
+const cors = require('cors');
 
 /**
  * Middleware functions for request body parsing and CORS handling.
@@ -11,4 +11,4 @@ const middlewares = [
   cors()
 ];
 
-export default middlewares;
+module.exports = middlewares;

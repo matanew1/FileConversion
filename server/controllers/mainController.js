@@ -1,9 +1,5 @@
 class MainController {
-    constructor() {
-        this.message = 'Home page loaded';
-    }
-
-    loadHomePage = async (_req, res) => {
+    static loadHomePage = async (_req, res) => {
         try {
             await res.status(200).json({ message: this.message });
         } catch (error) {
@@ -12,5 +8,4 @@ class MainController {
     }
 
 }
-
-export default new MainController();
+module.exports = MainController;

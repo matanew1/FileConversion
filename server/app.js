@@ -1,18 +1,14 @@
-import express from 'express';
-import middlewares from './middlewares/middleware.js';
-import mainRouter from './routers/mainRouter.js';
-import fileRouter from './routers/fileRouter.js';
-import { connectDB } from './models/database.js';
+const express = require('express');
+const middlewares = require('./middlewares/middleware.js');
+const mainRouter = require('./routers/mainRouter.js');
+const fileRouter = require('./routers/fileRouter.js');
 
 // init app
 const app = express();
-
-// connect to database
-connectDB();
 
 // use middlewares
 app.use(middlewares);
 
 app.use("/", mainRouter, fileRouter);
 
-export default app;
+module.exports = app;

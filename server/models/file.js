@@ -1,4 +1,4 @@
-import {mongoose} from './database.js';
+const {mongoose} = require('./database.js');
 
 // create file schema
 const fileSchema = new mongoose.Schema({
@@ -18,4 +18,4 @@ const fileSchema = new mongoose.Schema({
 
 const File = mongoose.model('File', fileSchema);
 
-export default File;
+module.exports = File;
