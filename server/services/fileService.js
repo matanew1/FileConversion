@@ -1,5 +1,6 @@
 const File = require('../models/file.js');
 const AdmZip = require('adm-zip');
+const fs = require('fs');
 
 class FileService {
     static uploadFile = async (file) => {
@@ -11,28 +12,28 @@ class FileService {
         }
     };
 
-    static convertRarToZip = async (rarFilePath) => {
+    static convertRarToZip = (file) => {
         try {
-          console.log('Converting');
+          console.log('Creating Zip file');
+          console.log('Start Conversion');
           const zip = new AdmZip();
-          zip.addLocalFile(rarFilePath);
-      
-          const zipFilePath = rarFilePath.replace('.rar', '.zip');
-          zip.writeZip(zipFilePath);
+          const data = fs.readFileSync(file.name, 'utf8');
+          zip.addFile('file.rar', data, 'file');
+          zip.writeZip('file.zip');
           console.log('Conversion successful!');
-      
-          return zipFilePath;
+          return zip;
         } catch (error) {
           throw new Error(error.message);
         }
       };
+      
 
     static downloadFile = async (fileId) => {
         try {
             const file =  await File.findById(fileId);
             switch (file.type) {
                 case 'rar':
-                    return await convertRarToZip(file);
+                    return await this.convertRarToZip(file);
                 // case 'zip':
                 //     return await convertZipToRar(file);
                 default:
