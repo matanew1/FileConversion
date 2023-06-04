@@ -13,10 +13,9 @@ class FileController {
 
     static downloadFile = async (req, res) => {
         try {
-            const fileType = req.query.type;
-            const fileId = req.query.id;
-            const savedFile = await FileService.downloadFile(fileId, fileType);
-            res.status(200).json(file);
+            const fileId = req.query._id;
+            const savedFile = await FileService.downloadFile(fileId);
+            res.status(200).json(savedFile);
         } catch (error) {
             res.status(500).json({message: error.message});
         }

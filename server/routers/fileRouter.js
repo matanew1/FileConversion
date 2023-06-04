@@ -5,6 +5,6 @@ const router = Router();
 
 router.post("/upload", FileController.uploadFile);
 
-router.post("/download/:id", FileController.downloadFile);
+router.get("/download", FileController.downloadFile);
 
 module.exports = router;

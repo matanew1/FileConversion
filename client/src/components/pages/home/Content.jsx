@@ -4,6 +4,7 @@ import './Content.css';
 import axios from 'axios';
 
 const Content = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
   const cards = [
     {
       title: 'Login',
@@ -26,7 +27,6 @@ const Content = () => {
       content: ['RAR', 'ZIP'],
     },
   ];
-  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -38,23 +38,41 @@ const Content = () => {
     const body = {
       name: selectedFile.name,
       size: selectedFile.size,
-      type: selectedFile.type
+      type: selectedFile.name.split('.').pop(),
     }
-    axios.post('http://localhost:8080/upload',body, {
-      headers: {'Content-Type':'application/json'}
+    axios.post('http://localhost:8080/upload', body, {
+      headers: { 'Content-Type': 'application/json' }
     }).then((response) => {
       const data = response.data;
-      console.log(data);
+      setSelectedFile(data);
     }).catch((error) => {
       console.log(error);
     })
   };
+
+  const downloadFile = (event) => {
+    event.preventDefault();
+    if (selectedFile.type === 'rar') {
+      console.log(selectedFile._id)
+      axios.get(`http://localhost:8080/download?_id=${selectedFile._id}`)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    }
+
+  }
 
   return (
     <div className="container">
       <form onSubmit={uploadFile}>
         <input type="file" onChange={handleFileChange} />
         <button type="submit">Upload</button>
+      </form>
+      <form onSubmit={downloadFile}>
+        <button type="submit">Download as rar</button>
       </form>
       {cards.map((card, index) => (
         <div className="card" key={index}>

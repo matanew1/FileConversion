@@ -11,23 +11,30 @@ class FileService {
         }
     };
 
-    static convertRarToZip = async (file) => {
+    static convertRarToZip = async (rarFilePath) => {
         try {
+          console.log('Converting');
           const zip = new AdmZip();
-          zip.addLocalFile(file);
-          const zipBuffer = zip.toBuffer(); // Get the ZIP file as a buffer
-          return zipBuffer;
+          zip.addLocalFile(rarFilePath);
+      
+          const zipFilePath = rarFilePath.replace('.rar', '.zip');
+          zip.writeZip(zipFilePath);
+          console.log('Conversion successful!');
+      
+          return zipFilePath;
         } catch (error) {
           throw new Error(error.message);
         }
       };
 
-    static downloadFile = async (fileId, fileType) => {
+    static downloadFile = async (fileId) => {
         try {
             const file =  await File.findById(fileId);
-            switch (fileType) {
+            switch (file.type) {
                 case 'rar':
                     return await convertRarToZip(file);
+                // case 'zip':
+                //     return await convertZipToRar(file);
                 default:
                     return;
             }
