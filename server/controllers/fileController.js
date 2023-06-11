@@ -4,7 +4,7 @@ class FileController {
 
     static uploadFile = async (req, res) => {
         try {
-            const file = await FileService.uploadFile(req.body);
+            const file = await FileService.uploadFile(req.file);
             res.status(200).json(file);
         } catch (error) {
             res.status(500).json({message: error.message});

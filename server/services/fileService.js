@@ -5,6 +5,7 @@ const fs = require('fs');
 class FileService {
     static uploadFile = async (file) => {
         try {
+            console.log(file)
             const fileEntity = new File(file);
             return await fileEntity.save();
         } catch (error) {

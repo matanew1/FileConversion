@@ -8,7 +8,6 @@ const app = express();
 
 // use middlewares
 app.use(middlewares);
-
 app.use("/", mainRouter, fileRouter);
 
 module.exports = app;

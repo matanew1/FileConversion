@@ -1,0 +1,19 @@
+{
+  "name": "file-conversion",
+  "version": "1.0.0",
+  "description": "This simple repo shows advanced fileconversion.",
+  "scripts": {
+    "start": "lerna run start --stream",
+    "build": "lerna run build",
+    "test": "mocha tests/**/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "client/",
+    "server/"
+  ],
+  "dependencies": {
+    "multer": "^1.4.5-lts.1"
+  }
+}

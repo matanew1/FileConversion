@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Content.css';
 import axios from 'axios';
@@ -35,13 +35,14 @@ const Content = () => {
 
   const uploadFile = (event) => {
     event.preventDefault();
-    const body = {
-      name: selectedFile.name,
-      size: selectedFile.size,
-      type: selectedFile.name.split('.').pop(),
-    }
-    axios.post('http://localhost:8080/upload', body, {
-      headers: { 'Content-Type': 'application/json' }
+
+    const formData = new FormData();
+    console.log(selectedFile)
+    formData.append('file', selectedFile);
+    console.log(formData);
+
+    axios.post('http://localhost:8080/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
     }).then((response) => {
       const data = response.data;
       setSelectedFile(data);
@@ -68,7 +69,7 @@ const Content = () => {
   return (
     <div className="container">
       <form onSubmit={uploadFile}>
-        <input type="file" onChange={handleFileChange} />
+        <input type="file" name="file" onChange={handleFileChange} />
         <button type="submit">Upload</button>
       </form>
       <form onSubmit={downloadFile}>

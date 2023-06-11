@@ -2,18 +2,26 @@ const {mongoose} = require('./database.js');
 
 // create file schema
 const fileSchema = new mongoose.Schema({
-    name: {
+    originalname: {
         type: String,
         required: true
     }, 
+    destination : {
+        type: String,
+        require: true
+    },
+    path : {
+        type: String,
+        required: true
+    },
+    mimetype: {
+        type: String,
+        required: true
+    },
     size : {
         type: Number,
         required: true
     },
-    type : {
-        type: String,
-        required: true
-    }
 });
 
 const File = mongoose.model('File', fileSchema);
