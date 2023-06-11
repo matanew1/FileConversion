@@ -1,5 +1,6 @@
 const File = require('../models/file.js');
 const AdmZip = require('adm-zip');
+const unrar = require('node-unrar');
 const fs = require('fs');
 
 class FileService {
@@ -12,34 +13,15 @@ class FileService {
     }
   };
 
-  static convertFileToRAR = async (file) => {
-    try {
-      const filePath = file.path;
-        console.log(filePath)
-      // Create an instance of AdmZip to work with ZIP files
-      const zip = new AdmZip();
-
-      // Add the file to the ZIP archive
-      zip.addLocalFile(filePath);
-      console.log(zip)
-      // Specify the output path and filename for the RAR file
-      const outputFilePath = `${filePath}.rar`;
-
-      // Write the ZIP archive to disk
-      zip.writeZip(outputFilePath);
-      console.log(zip)
-      console.log(outputFilePath)
-      return outputFilePath;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+  static convertRarToZip = async (filePath) => {
+    
   };
-
-  static downloadFile = async (fileId) => {
+  
+  static downloadFile = async (fileId, fileType) => {
     try {
       const file = await File.findById(fileId);
-      const rarFilePath = await this.convertFileToRAR(file);
-      return rarFilePath;
+      this.convertRarToZip(file.path);
+      return filePath;
     } catch (error) {
       throw new Error(error.message);
     }

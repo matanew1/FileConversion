@@ -3,7 +3,6 @@ import Footer from '../../footer/Footer'
 import Header from '../../header/Header';
 import Content from './Content';
 import { Container, Grid } from '@mui/material';
-import './Home.css';
 
 const Home = () => {
   return (

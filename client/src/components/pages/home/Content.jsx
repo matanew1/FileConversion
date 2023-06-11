@@ -6,32 +6,19 @@ import axios from 'axios';
 const Content = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const downloadFileAsRAR = (event) => {
+  const downloadFile = async (event) => {
     event.preventDefault();
-    axios
-      .get(`http://localhost:8080/download?_id=${selectedFile._id}`, {
-        responseType: 'blob',
-      })
-      .then((response) => {
-        const blob = new Blob([response.data], { type: 'application/x-rar-compressed' });
-
-        const url = URL.createObjectURL(blob);
-
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = selectedFile.originalname + '.rar';
-
-        document.body.appendChild(link);
-
-        link.click();
-
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      const response = await axios.get(`http://localhost:8080/download?_id=${selectedFile._id}`); 
+      if (response.status === 200) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
+  
 
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -71,16 +58,16 @@ const Content = () => {
       ),
       download:
         selectedFile !== null ? (
-          <>
-            <Button variant="contained" onClick={downloadFileAsRAR} startIcon={<GetApp />}>
-              Download As RAR
-            </Button>
-            <Button variant="contained" onClick={downloadFileAsRAR} startIcon={<GetApp />}>
-              Download As ZIP
-            </Button>
-          </>
+          <Button
+            variant="contained"
+            name={selectedFile.mimetype === 'application/zip' ? 'rar' : 'zip'}
+            onClick={downloadFile}
+            startIcon={<GetApp />}
+          >
+            Download As {selectedFile.mimetype === 'application/zip' ? 'RAR' : 'ZIP'}
+          </Button>
         ) : null,
-    }
+    },
   ];
 
   return (
@@ -88,7 +75,7 @@ const Content = () => {
       <Grid container spacing={2}>
         {cards.map((card, index) => (
           <Grid item xs={12} sm={12} key={index}>
-            <Paper elevation={3} sx={{ background: "transparent", color: "white", padding: '2rem' }}>
+            <Paper elevation={3} sx={{ background: 'transparent', color: 'white', padding: '2rem' }}>
               <Typography variant="h5">{card.title}</Typography>
               <br />
               <Grid item>
@@ -101,9 +88,9 @@ const Content = () => {
                     ))}
                   </List>
                 ) : (
-                  <Grid item justifyContent='center' alignItems="center">
+                  <Grid item justifyContent="center" alignItems="center">
                     {card.content}
-                    <br /><br />
+                    <br />
                     {card.download}
                   </Grid>
                 )}
