@@ -1,21 +1,20 @@
 import React from 'react';
 import Footer from '../../footer/Footer'
 import Header from '../../header/Header';
-import Sidebar from '../../sidebar/Sidebar';
 import Content from './Content';
+import { Container, Grid } from '@mui/material';
 import './Home.css';
 
 const Home = () => {
-    return (
-        <div>
-            <header><Header /></header>
-            <main>
-                <aside><Sidebar /></aside>
-                <div><Content /></div>
-            </main>
-            <footer><Footer /></footer>
-        </div>
-    );
+  return (
+    <Container>
+      <Grid container direction="column" spacing={12}>
+        <Grid item><Header /></Grid>
+        <Grid item><Content /></Grid>
+        <Grid item><Footer /></Grid>
+      </Grid>
+    </Container>
+  );
 };
 
 export default Home;
