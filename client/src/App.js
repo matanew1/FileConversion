@@ -2,14 +2,12 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/pages/home/Home';
 import { Container } from '@mui/material';
+import Video from './components/video/Video';
 
 function App() {
   return (
     <Container>
-      <video id="background-video" loop autoPlay muted playsInline>
-        <source src="/bg_video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <Video/>
       <Container className="content-container">
         <BrowserRouter>
           <Routes>
