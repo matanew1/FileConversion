@@ -1,6 +1,7 @@
 const File = require('../models/file.js');
+const unrar = require("node-unrar-js");
 const AdmZip = require('adm-zip');
-const unrar = require('node-unrar');
+const path = require('path');
 const fs = require('fs');
 
 class FileService {
@@ -14,14 +15,18 @@ class FileService {
   };
 
   static convertRarToZip = async (filePath) => {
-    
+    try {
+
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
-  
+
   static downloadFile = async (fileId, fileType) => {
     try {
       const file = await File.findById(fileId);
-      this.convertRarToZip(file.path);
-      return filePath;
+      const zipFilePath = this.convertRarToZip(file.path);
+      return zipFilePath;
     } catch (error) {
       throw new Error(error.message);
     }

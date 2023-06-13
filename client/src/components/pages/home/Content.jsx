@@ -17,8 +17,7 @@ const Content = () => {
       console.error(error);
     }
   };
-  
-  
+
 
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -88,7 +87,7 @@ const Content = () => {
                     ))}
                   </List>
                 ) : (
-                  <Grid item justifyContent="center" alignItems="center">
+                  <Grid item style={{ display: 'flex', justifyContent: "space-between", alignItems:"center" }} >
                     {card.content}
                     <br />
                     {card.download}

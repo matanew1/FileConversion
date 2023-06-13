@@ -27,8 +27,8 @@ const Header = () => {
     <AppBar color="transparent" elevation={0}>
       <Toolbar>
         {/* Grid container to structure the header */}
-        <Container alignItems="center" justifyContent="space-between">
-          <Grid container alignItems="center" justifyContent="space-between" spacing={1}>
+        <Container style={{ display: 'flex', justifyContent: "space-between", alignItems:"center" }}>
+          <Grid container  style={{ display: 'flex', justifyContent: "space-between", alignItems:"center" }} spacing={1}>
             <Grid item>
               {/* Logo */}
               <Box display="flex" alignItems="center" gap="20px">

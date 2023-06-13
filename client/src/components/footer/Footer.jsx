@@ -17,8 +17,8 @@ const Footer = () => {
       left={0}
       width="100%"
       display="flex"
-      justifyContent="center"
-      bgcolor="transparent" /* Set the background color to transparent */
+      bgcolor="transparent"
+      // style={{ display: 'flex', justifyContent: 'center' }}
     >
       <BottomNavigation
         showLabels
@@ -26,15 +26,15 @@ const Footer = () => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        style={{ backgroundColor: 'transparent' }} /* Set the background color to transparent */
+        style={{ backgroundColor: 'transparent' }} 
       >
         <BottomNavigationAction
           label="Recents"
-          icon={<RestoreIcon sx={{ color: 'white' }} />} /* Set the color of the icon to black */
+          icon={<RestoreIcon sx={{ color: 'white' }} />} 
         />
         <BottomNavigationAction
           label="Favorites"
-          icon={<FavoriteIcon sx={{ color: 'white' }} />} /* Set the color of the icon to black */
+          icon={<FavoriteIcon sx={{ color: 'white' }} />} 
         />
       </BottomNavigation>
       <Typography variant="h7" color="white" align="center">
