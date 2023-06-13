@@ -10,4 +10,6 @@ router.post("/upload", upload.single("file"), FileController.uploadFile);
 
 router.get("/download", FileController.downloadFile);
 
+router.get('/download/:filename', FileController.downloadFileByFilename);
+
 module.exports = router;

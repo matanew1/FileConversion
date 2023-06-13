@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import { Button, Typography, List, ListItem, ListItemText, Paper, Container, Grid } from '@mui/material';
+import { Button, Typography, List, ListItem, ListItemText, Paper, Container, Grid, TextField } from '@mui/material';
 import { CloudUpload, GetApp } from '@mui/icons-material';
 import axios from 'axios';
 
 const Content = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedLink, setSelectedLink] = useState('');
 
   const downloadFile = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:8080/download?_id=${selectedFile._id}`); 
+      const response = await axios.get(`http://localhost:8080/download?_id=${selectedFile._id}`);
       if (response.status === 200) {
-        console.log(response.data);
+        const fileName = response.data;
+        window.location.href = `http://localhost:8080/download/${fileName}`;
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-
   const handleFileChange = (event) => {
     event.preventDefault();
-
     const formData = new FormData();
     formData.append('file', event.target.files[0]);
 
@@ -38,9 +38,19 @@ const Content = () => {
         });
   };
 
+  const handleLinkChange = (event) => {
+    event.preventDefault();
+    setSelectedLink(event.target.value)
+  };
+
+  const downloadMP3 = (event) => {
+    event.preventDefault();
+    console.log(selectedLink);
+  };
+
   const cards = [
     {
-      title: 'UPLOAD FILE',
+      title: 'CONVERT RAR TO ZIP',
       content: (
         <Typography>
           <label>
@@ -50,10 +60,38 @@ const Content = () => {
               onChange={handleFileChange}
             />
             <Button variant="contained" component="span" startIcon={<CloudUpload />}>
-              Upload
+              Upload RAR File
             </Button>
           </label>
         </Typography>
+      ),
+      download:
+        selectedFile !== null ? (
+          <Button
+            variant="contained"
+            name={selectedFile.mimetype === 'application/zip' ? 'rar' : 'zip'}
+            onClick={downloadFile}
+            startIcon={<GetApp />}
+          >
+            Download As {selectedFile.mimetype === 'application/zip' ? 'RAR' : 'ZIP'}
+          </Button>
+        ) : null,
+    },
+    {
+      title: 'CONVERT YOUTUBE LINK TO MP3',
+      content: (
+            <Grid container spacing={3}>
+              <Grid item>
+                <TextField label="Youtube Link" sx={{ backgroundColor: "white"}} value={selectedLink}
+                  onChange={handleLinkChange}
+                />
+              </Grid>
+              <Grid item>
+                <Button onClick={downloadMP3} variant="contained" component="span" startIcon={<CloudUpload />}>
+                  Download as mp3
+                </Button>
+              </Grid>
+            </Grid>
       ),
       download:
         selectedFile !== null ? (

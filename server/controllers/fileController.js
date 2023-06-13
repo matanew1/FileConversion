@@ -1,4 +1,5 @@
 const FileService = require('../services/fileService.js');
+const path = require('path');
 
 class FileController {
 
@@ -19,6 +20,20 @@ class FileController {
         } catch (error) {
             res.status(500).json({message: error.message});
         }
+    }
+
+    static downloadFileByFilename = async (req, res) => {
+        const fileName = req.params.filename;
+        const pathToFile = `${String(fileName).split('.')[0]}/${fileName}`
+        const file = path.join(__dirname, '..', `uploads/${pathToFile}`);   
+        console.log(file)
+        res.download(file, (err) => {
+            if (err) {
+                console.error('Error downloading file:', err);
+            } else {
+                console.log('File downloaded successfully');
+            }
+        });
     }
             
 }
