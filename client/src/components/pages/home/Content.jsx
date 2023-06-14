@@ -54,14 +54,13 @@ const Content = () => {
       content: (
         <Typography>
           <label>
-            <input
-              type="file"
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-            />
+            <input type="file" style={{ display: 'none' }} onChange={handleFileChange}/>
             <Button variant="contained" component="span" startIcon={<CloudUpload />}>
               Upload RAR File
             </Button>
+            <Typography variant="h7" color="initial">
+              &nbsp;&nbsp;&nbsp; {selectedFile ? (selectedFile.originalname) : ""}
+            </Typography>
           </label>
         </Typography>
       ),
@@ -86,23 +85,14 @@ const Content = () => {
                   onChange={handleLinkChange}
                 />
               </Grid>
-              <Grid item>
-                <Button onClick={downloadMP3} variant="contained" component="span" startIcon={<CloudUpload />}>
-                  Download as mp3
-                </Button>
-              </Grid>
             </Grid>
       ),
       download:
-        selectedFile !== null ? (
-          <Button
-            variant="contained"
-            name={selectedFile.mimetype === 'application/zip' ? 'rar' : 'zip'}
-            onClick={downloadFile}
-            startIcon={<GetApp />}
-          >
-            Download As {selectedFile.mimetype === 'application/zip' ? 'RAR' : 'ZIP'}
-          </Button>
+      selectedLink !== '' ? (
+        <Button onClick={downloadMP3} variant="contained" component="span"
+           startIcon={<CloudUpload />}>
+          Download as mp3
+        </Button>
         ) : null,
     },
   ];
@@ -125,7 +115,8 @@ const Content = () => {
                     ))}
                   </List>
                 ) : (
-                  <Grid item style={{ display: 'flex', justifyContent: "space-between", alignItems:"center" }} >
+                  <Grid item style={{ display: 'flex', justifyContent: "space-between",
+                       alignItems:"center" }} >
                     {card.content}
                     <br />
                     {card.download}
