@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Typography, List, ListItem, ListItemText, Paper, Container, Grid, TextField } from '@mui/material';
+import { Button, Typography, List, ListItem, ListItemText, Paper, Container, Grid } from '@mui/material';
 import { CloudUpload, GetApp } from '@mui/icons-material';
 import axios from 'axios';
 
 const Content = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedLink, setSelectedLink] = useState('');
 
   const downloadFile = async (event) => {
     event.preventDefault();
@@ -38,16 +37,6 @@ const Content = () => {
         });
   };
 
-  const handleLinkChange = (event) => {
-    event.preventDefault();
-    setSelectedLink(event.target.value)
-  };
-
-  const downloadMP3 = (event) => {
-    event.preventDefault();
-    console.log(selectedLink);
-  };
-
   const cards = [
     {
       title: 'CONVERT RAR TO ZIP',
@@ -75,26 +64,7 @@ const Content = () => {
             Download As {selectedFile.mimetype === 'application/zip' ? 'RAR' : 'ZIP'}
           </Button>
         ) : null,
-    },
-    {
-      title: 'CONVERT YOUTUBE LINK TO MP3',
-      content: (
-            <Grid container spacing={3}>
-              <Grid item>
-                <TextField label="Youtube Link" sx={{ backgroundColor: "white"}} value={selectedLink}
-                  onChange={handleLinkChange}
-                />
-              </Grid>
-            </Grid>
-      ),
-      download:
-      selectedLink !== '' ? (
-        <Button onClick={downloadMP3} variant="contained" component="span"
-           startIcon={<CloudUpload />}>
-          Download as mp3
-        </Button>
-        ) : null,
-    },
+    }
   ];
 
   return (
