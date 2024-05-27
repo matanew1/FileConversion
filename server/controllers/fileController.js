@@ -24,9 +24,7 @@ class FileController {
 
     static downloadFileByFilename = async (req, res) => {
         const fileName = req.params.filename;
-        const pathToFile = `${String(fileName).split('.')[0]}/${fileName}`
-        const file = path.join(__dirname, '..', `uploads/${pathToFile}`);   
-        console.log(file)
+        const file = path.join(__dirname, '..', `uploads/${fileName}`);  
         res.download(file, (err) => {
             if (err) {
                 console.error('Error downloading file:', err);

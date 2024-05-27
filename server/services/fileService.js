@@ -31,7 +31,10 @@ class FileService {
 
   static createZipFile = async (pathFile, fileName) => {
     try {
-      zipper.sync.zip(pathFile).compress().save(`${pathFile}/${fileName}.zip`);
+      zipper.sync.zip(pathFile).
+      compress().
+      save(path.join(__dirname, '..', `uploads/${fileName}.zip`));
+      
     } catch (error) {
       throw new Error(error.message);
     }

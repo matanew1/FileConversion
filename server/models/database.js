@@ -17,7 +17,7 @@ async function connectToMongoDB(mongoURI) {
 }
 
 // Retrieve the MongoDB connection URI from the configuration
-const mongoURI = 'mongodb://127.0.0.1:27017/fileDB';
+const mongoURI = 'mongodb+srv://matan:matan@cluster0.bgo3pus.mongodb.net/?retryWrites=true&w=majority';
 
 // Establish the connection to MongoDB
 connectToMongoDB(mongoURI);
