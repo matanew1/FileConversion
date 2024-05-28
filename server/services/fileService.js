@@ -1,8 +1,8 @@
-const File = require('../models/file.js');
-const fs = require('fs');
-const path = require('path');
-const zipper = require('zip-local');
-const { createExtractorFromFile } = require('node-unrar-js');
+const File = require("../models/file.js");
+const fs = require("fs");
+const path = require("path");
+const zipper = require("zip-local");
+const { createExtractorFromFile } = require("node-unrar-js");
 
 class FileService {
   static uploadFile = async (file) => {
@@ -19,7 +19,7 @@ class FileService {
       // Create the extractor with the pathFile information (returns a promise)
       const extractor = await createExtractorFromFile({
         filepath: pathFile,
-        targetPath: destination
+        targetPath: destination,
       });
       // Extract the files
       [...extractor.extract().files];
@@ -31,10 +31,10 @@ class FileService {
 
   static createZipFile = async (pathFile, fileName) => {
     try {
-      zipper.sync.zip(pathFile).
-      compress().
-      save(path.join(__dirname, '..', `uploads/${fileName}.zip`));
-      
+      zipper.sync
+        .zip(pathFile)
+        .compress()
+        .save(path.join(__dirname, "..", `uploads/${fileName}.zip`));
     } catch (error) {
       throw new Error(error.message);
     }
@@ -43,11 +43,11 @@ class FileService {
   static downloadFile = async (fileId, fileType) => {
     try {
       const file = await File.findById(fileId);
-      const fileName = String(file.originalname).split('.')[0];
-      const outputDir = path.join(__dirname, '..', `uploads/${fileName}`);   
+      const fileName = String(file.originalname).split(".")[0];
+      const outputDir = path.join(__dirname, "..", `uploads/${fileName}`);
       await this.unrarFile(file.path, outputDir);
       await this.createZipFile(outputDir, fileName);
-      return await fileName+'.zip';
+      return fileName + ".zip";
     } catch (error) {
       throw new Error(error.message);
     }
