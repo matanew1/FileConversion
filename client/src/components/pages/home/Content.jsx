@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
-import { Button, Typography, List, ListItem, ListItemText, Paper, Container, Grid } from '@mui/material';
-import { CloudUpload, GetApp } from '@mui/icons-material';
-import axios from 'axios';
+import React, { useState } from "react";
+import {
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+  Container,
+  Grid,
+} from "@mui/material";
+import { CloudUpload, GetApp } from "@mui/icons-material";
+import axios from "axios";
+import creds from "../../../utils/credentials.json";
 
 const Content = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -9,10 +19,12 @@ const Content = () => {
   const downloadFile = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:8080/download?_id=${selectedFile._id}`);
+      const response = await axios.get(
+        `${creds.baseUrl}/download?_id=${selectedFile._id}`,
+      );
       if (response.status === 200) {
         const fileName = response.data;
-        window.location.href = `http://localhost:8080/download/${fileName}`;
+        window.location.href = `${creds.baseUrl}/download/${fileName}`;
       }
     } catch (error) {
       console.error(error);
@@ -22,12 +34,12 @@ const Content = () => {
   const handleFileChange = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('file', event.target.files[0]);
+    formData.append("file", event.target.files[0]);
 
     if (event.target.files.length > 0)
       axios
-        .post('http://localhost:8080/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
+        .post(`${creds.baseUrl}/upload`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
           setSelectedFile(response.data);
@@ -39,16 +51,24 @@ const Content = () => {
 
   const cards = [
     {
-      title: 'CONVERT RAR TO ZIP',
+      title: "CONVERT RAR TO ZIP",
       content: (
         <Typography>
           <label>
-            <input type="file" style={{ display: 'none' }} onChange={handleFileChange}/>
-            <Button variant="contained" component="span" startIcon={<CloudUpload />}>
+            <input
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <Button
+              variant="contained"
+              component="span"
+              startIcon={<CloudUpload />}
+            >
               Upload RAR File
             </Button>
             <Typography variant="h7" color="initial">
-              &nbsp;&nbsp;&nbsp; {selectedFile ? (selectedFile.originalname) : ""}
+              &nbsp;&nbsp;&nbsp; {selectedFile ? selectedFile.originalname : ""}
             </Typography>
           </label>
         </Typography>
@@ -57,14 +77,15 @@ const Content = () => {
         selectedFile !== null ? (
           <Button
             variant="contained"
-            name={selectedFile.mimetype === 'application/zip' ? 'rar' : 'zip'}
+            name={selectedFile.mimetype === "application/zip" ? "rar" : "zip"}
             onClick={downloadFile}
             startIcon={<GetApp />}
           >
-            Download As {selectedFile.mimetype === 'application/zip' ? 'RAR' : 'ZIP'}
+            Download As{" "}
+            {selectedFile.mimetype === "application/zip" ? "RAR" : "ZIP"}
           </Button>
         ) : null,
-    }
+    },
   ];
 
   return (
@@ -72,7 +93,14 @@ const Content = () => {
       <Grid container spacing={2}>
         {cards.map((card, index) => (
           <Grid item xs={12} sm={12} key={index}>
-            <Paper elevation={3} sx={{ background: 'transparent', color: 'white', padding: '2rem' }}>
+            <Paper
+              elevation={3}
+              sx={{
+                background: "transparent",
+                color: "white",
+                padding: "2rem",
+              }}
+            >
               <Typography variant="h5">{card.title}</Typography>
               <br />
               <Grid item>
@@ -85,8 +113,14 @@ const Content = () => {
                     ))}
                   </List>
                 ) : (
-                  <Grid item style={{ display: 'flex', justifyContent: "space-between",
-                       alignItems:"center" }} >
+                  <Grid
+                    item
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
                     {card.content}
                     <br />
                     {card.download}
