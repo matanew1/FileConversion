@@ -14,7 +14,7 @@ class FileService {
     }
   };
 
-  static unrarFile = async (pathFile, destination) => {
+  static unRarFile = async (pathFile, destination) => {
     try {
       // Create the extractor with the pathFile information (returns a promise)
       const extractor = await createExtractorFromFile({
@@ -23,6 +23,14 @@ class FileService {
       });
       // Extract the files
       [...extractor.extract().files];
+    } catch (err) {
+      // May throw UnrarError, see docs
+      console.error(err);
+    }
+  };
+
+  static unZipFile = async (pathFile, destination) => {
+    try {
     } catch (err) {
       // May throw UnrarError, see docs
       console.error(err);
@@ -40,16 +48,33 @@ class FileService {
     }
   };
 
+  static createRarFile = async (pathFile, fileName) => {
+    try {
+      zipper.sync
+        .rar(pathFile)
+        .compress()
+        .save(path.join(__dirname, "..", `uploads/${fileName}.rar`));
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
   static downloadFile = async (fileId, fileType) => {
     try {
       const file = await File.findById(fileId);
       const fileName = String(file.originalname).split(".")[0];
       const fileType = String(file.originalname).split(".")[1];
+      console.log(fileName, fileType);
       const outputDir = path.join(__dirname, "..", `uploads/${fileName}`);
       if (fileType === "rar") {
-        await this.unrarFile(file.path, outputDir);
+        await this.unRarFile(file.path, outputDir);
         await this.createZipFile(outputDir, fileName);
         return fileName + ".zip";
+      }
+      if (fileType === "zip") {
+        await this.unZipFile(file.path, outputDir);
+        await this.createRarFile(outputDir, fileName);
+        return fileName + ".rar";
       }
     } catch (error) {
       throw new Error(error.message);
