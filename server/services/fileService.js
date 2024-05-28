@@ -44,10 +44,13 @@ class FileService {
     try {
       const file = await File.findById(fileId);
       const fileName = String(file.originalname).split(".")[0];
+      const fileType = String(file.originalname).split(".")[1];
       const outputDir = path.join(__dirname, "..", `uploads/${fileName}`);
-      await this.unrarFile(file.path, outputDir);
-      await this.createZipFile(outputDir, fileName);
-      return fileName + ".zip";
+      if (fileType === "rar") {
+        await this.unrarFile(file.path, outputDir);
+        await this.createZipFile(outputDir, fileName);
+        return fileName + ".zip";
+      }
     } catch (error) {
       throw new Error(error.message);
     }
