@@ -77,12 +77,46 @@ const Content = () => {
         selectedFile !== null ? (
           <Button
             variant="contained"
-            name={selectedFile.mimetype === "application/zip" ? "rar" : "zip"}
+            name={"zip"}
             onClick={downloadFile}
             startIcon={<GetApp />}
           >
-            Download As{" "}
-            {selectedFile.mimetype === "application/zip" ? "RAR" : "ZIP"}
+            Download As {"ZIP"}
+          </Button>
+        ) : null,
+    },
+    {
+      title: "CONVERT ZIP TO RAR",
+      content: (
+        <Typography>
+          <label>
+            <input
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <Button
+              variant="contained"
+              component="span"
+              startIcon={<CloudUpload />}
+            >
+              Upload ZIP File
+            </Button>
+            <Typography variant="h7" color="initial">
+              &nbsp;&nbsp;&nbsp; {selectedFile ? selectedFile.originalname : ""}
+            </Typography>
+          </label>
+        </Typography>
+      ),
+      download:
+        selectedFile !== null ? (
+          <Button
+            variant="contained"
+            name={"rar"}
+            onClick={downloadFile}
+            startIcon={<GetApp />}
+          >
+            Download As {"RAR"}
           </Button>
         ) : null,
     },
