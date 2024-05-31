@@ -74,7 +74,7 @@ const FileCard = ({ title, fileType, to }) => {
       <Paper
         sx={{
           background: "transparent",
-          color: "white",
+          color: "black",
           padding: "2rem",
         }}
       >

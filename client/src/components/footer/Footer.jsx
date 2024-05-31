@@ -18,7 +18,7 @@ const Footer = () => {
       width="100%"
       display="flex"
       bgcolor="transparent"
-      // style={{ display: 'flex', justifyContent: 'center' }}
+      style={{ display: 'flex', justifyContent: 'center' }}
     >
       <BottomNavigation
         showLabels
@@ -30,14 +30,14 @@ const Footer = () => {
       >
         <BottomNavigationAction
           label="Recents"
-          icon={<RestoreIcon sx={{ color: 'white' }} />} 
+          icon={<RestoreIcon sx={{ color: 'black' }} />} 
         />
         <BottomNavigationAction
           label="Favorites"
-          icon={<FavoriteIcon sx={{ color: 'white' }} />} 
+          icon={<FavoriteIcon sx={{ color: 'black' }} />} 
         />
       </BottomNavigation>
-      <Typography variant="h7" color="white" align="center">
+      <Typography variant="h7" color="black" align="center">
         © {new Date().getFullYear()} Matan Bardugo. All rights reserved.&nbsp;
       </Typography>
     </Box>
